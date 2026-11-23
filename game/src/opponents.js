@@ -26,7 +26,7 @@ export const OPPONENTS = [
     avatar: '♛', hp: 38, aggression: 0.55, guardBias: 0.3,
     deck: ['inferno', 'flame-lash', 'ignite', 'ignite', 'meteor',
            'glacial-wall', 'deep-freeze', 'stormcall', 'chain-lightning',
-           'bloom', 'spore-cloud', 'ember-strike', 'frost-ward', 'blizzard', 'mana-siphon'],
+           'bloom', 'spore-cloud', 'ember-strike', 'frost-ward', 'blizzard'],
     taunt: '“Kneel, little spark. The Ashen Throne does not fall.”',
     lowHpTaunt: '“The throne… cracks? No — NO!”',
     defeat: '“Impossible… take the crown, Ember Mage.”',
