@@ -43,7 +43,7 @@ export class Game {
     this.foeTauntedLow = false;
     this.playerTauntedLow = false;
     this.lastPlayed = [];
-    this.playerHp = this.duelIndex === 0 ? 30 : Math.min(30, this.playerHp + 12);
+    this.playerHp = this.duelIndex === 0 ? 30 : this.playerMax;
     this.playerMax = 30;
     this.playerBlock = 0;
     this.playerBurn = 0;
@@ -375,7 +375,7 @@ export class Game {
     sfx.draft();
     this.showOverlay(`
       <h2>🏆 Duel ${this.duelIndex + 1} won! +${gained} score</h2>
-      <p>${this.opp.name} falls. You catch your breath (+12 HP) and choose <b>one new card</b> for your deck — or rest and mend instead — before the next duel.</p>
+      <p>${this.opp.name} falls. You catch your breath (fully healed) and choose <b>one new card</b> for your deck — or take Second Wind instead — before the next duel.</p>
       <div class="draftRow" id="draftRow"></div>
       <p class="sub">Your deck: ${this.deckIds.length} cards → ${this.deckIds.length + 1}</p>
     `);
@@ -394,22 +394,23 @@ export class Game {
       };
       row.appendChild(el);
     });
-    // Fourth choice: rest instead of drafting — mend wounds, take no card.
+    // Fourth choice: Second Wind — mend wounds and raise max HP, take no card.
     const rest = document.createElement('div');
     rest.className = 'card el-leaf';
     rest.innerHTML = `
       <div class="cost">–</div>
       <div class="rarity">★</div>
       <div class="cicon">💚</div>
-      <div class="cname">Rest &amp; Mend</div>
+      <div class="cname">Second Wind</div>
       <div class="celem">🌿 LEAF</div>
-      <div class="ctext">Heal 12 HP now. Take no new card.</div>
+      <div class="ctext">Heal 12 HP and gain +2 max HP. Take no new card.</div>
     `;
     rest.onclick = () => {
+      this.playerMax = Math.min(40, this.playerMax + 2);
       const real = Math.min(12, this.playerMax - this.playerHp);
       this.playerHp += real;
       sfx.heal();
-      this.log('sys', `💚 You rest and mend ${real} HP.`);
+      this.log('sys', `💚 Second Wind: +2 max HP, mended ${real} HP.`);
       this.hideOverlay();
       this.duelIndex += 1;
       this.startDuel();
