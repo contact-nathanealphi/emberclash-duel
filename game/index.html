@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Emberclash — Duel of the Ember Mages</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <!-- Top bar -->
+  <header id="topbar">
+    <div class="brand">🔥 EMBERCLASH</div>
+    <div class="topinfo">
+      <span id="duelLabel">Duel 1 / 3</span>
+      <span id="scoreLabel">Score 0</span>
+      <span id="bestLabel">Best 0</span>
+    </div>
+    <div class="topbtns">
+      <button id="helpBtn" class="mini" title="How to play (H)">?</button>
+      <button id="soundBtn" class="mini" title="Sound on/off (M)">♪</button>
+      <button id="restartBtn" class="mini" title="Restart run (R)">↺</button>
+    </div>
+  </header>
+
+  <!-- Opponent -->
+  <section id="foeZone">
+    <div id="foeCard" class="fighter">
+      <div id="foeAvatar" class="avatar">🌱</div>
+      <div class="fighterInfo">
+        <div class="fighterName"><span id="foeName">Pip the Sproutling</span> <span id="foeTitle" class="foeTitle">Rival Mage · Duel 1</span></div>
+        <div class="hpbar"><div id="foeHpFill" class="hpfill foe"></div><span id="foeHpText" class="hptext">26 / 26</span></div>
+        <div class="statusRow">
+          <span id="foeBlock" class="chip block hidden">🛡 0</span>
+          <span id="foeBurn" class="chip burn hidden">🔥 Burn 0</span>
+          <span id="foeIntent" class="chip intent">🤔 scheming…</span>
+        </div>
+      </div>
+      <div id="foeHandCount" class="pileCount" title="Rival hand">▦ ×5</div>
+    </div>
+    <div id="banner" class="hidden"></div>
+  </section>
+
+  <!-- Battlefield: played cards + log -->
+  <section id="field">
+    <div id="playedZone"></div>
+    <div id="logBox" aria-live="polite"></div>
+  </section>
+
+  <!-- Player -->
+  <section id="playerZone">
+    <div id="playerCard" class="fighter">
+      <div id="playerAvatar" class="avatar">🧙</div>
+      <div class="fighterInfo">
+        <div class="fighterName">You <span class="foeTitle">the Ember Mage</span></div>
+        <div class="hpbar"><div id="playerHpFill" class="hpfill you"></div><span id="playerHpText" class="hptext">30 / 30</span></div>
+        <div class="statusRow">
+          <span id="playerBlock" class="chip block hidden">🛡 0</span>
+          <span id="playerBurn" class="chip burn hidden">🔥 Burn 0</span>
+          <span id="playerSurge" class="chip surge hidden">⚡ Surge ready</span>
+        </div>
+      </div>
+      <div id="manaBox" title="Ember mana — refills each turn"></div>
+    </div>
+    <div id="piles">
+      <div id="deckPile" class="pile" title="Draw pile — click to see count">▦ <b id="deckCount">10</b><span>Deck</span></div>
+      <div id="discardPile" class="pile" title="Discard pile">▤ <b id="discardCount">0</b><span>Discard</span></div>
+      <button id="endTurnBtn" class="endturn">END TURN ⏎</button>
+    </div>
+  </section>
+
+  <!-- Hand -->
+  <section id="handZone">
+    <div id="hand"></div>
+    <div id="handHint">Click a card to play it · keys 1–9 play · Space ends turn</div>
+  </section>
+
+  <!-- Overlays -->
+  <div id="overlay" class="hidden">
+    <div id="overlayCard"></div>
+  </div>
+
+  <!-- Card tooltip -->
+  <div id="tooltip" class="hidden"></div>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
