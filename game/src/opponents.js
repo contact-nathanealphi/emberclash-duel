@@ -13,9 +13,9 @@ export const OPPONENTS = [
   },
   {
     id: 'kael', name: 'Kael the Ember Knight', title: 'Rival Mage · Duel 2',
-    avatar: '♞', hp: 30, aggression: 0.5, guardBias: 0.3,
-    deck: ['ember-strike', 'ember-strike', 'flame-lash', 'flame-lash', 'ignite',
-           'frost-ward', 'frost-ward', 'spark-volley', 'stormcall', 'leaf-mend',
+    avatar: '♞', hp: 28, aggression: 0.5, guardBias: 0.3,
+    deck: ['ember-strike', 'ember-strike', 'flame-lash', 'ignite',
+           'frost-ward', 'frost-ward', 'spark-volley', 'stormcall',
            'thorn-whip', 'cinder-jab'],
     taunt: '“My blade is fire. My patience is not.”',
     lowHpTaunt: '“You dare scratch the Ember Knight?!”',

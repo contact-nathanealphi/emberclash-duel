@@ -576,6 +576,9 @@ export class Game {
       <h1>🔥 EMBERCLASH 🔥</h1>
       <h2>Duel of the Ember Mages</h2>
       <p>A turn-based card battler. Outplay three rival mages, draft new cards between duels, and claim the Ember Crown.</p>
+      <div class="statGrid">
+        ${OPPONENTS.map((o) => `<div class="stat"><b>${o.avatar}</b><span>${o.name.toUpperCase()} · ${o.hp} HP</span></div>`).join('')}
+      </div>
       <div class="rules">
         <b>» How to play</b><br>
         • Each turn you gain mana (up to 10) and draw 2 cards.<br>

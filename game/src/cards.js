@@ -45,7 +45,7 @@ export function cardById(id) {
 export function buildStarterDeck() {
   return [
     'ember-strike', 'ember-strike', 'cinder-jab',
-    'frost-ward', 'frost-ward', 'frost-ward', 'flame-lash',
+    'frost-ward', 'frost-ward', 'flame-lash', 'ignite',
     'spark-volley', 'leaf-mend', 'thorn-whip',
   ];
 }
