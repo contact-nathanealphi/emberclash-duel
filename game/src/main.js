@@ -65,7 +65,7 @@ if (shot) {
     game.phase = 'over';
     game.duelIndex = 2;
     game.opp = opponentByIndex(2);
-    game.foeMax = 42;
+    game.foeMax = 40;
     game.foeHp = 0;
     game.score = 642;
     game.stats.damageDealt = 118;
