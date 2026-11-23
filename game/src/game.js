@@ -427,6 +427,7 @@ export class Game {
     $('bestLabel').textContent = `Best ${this.best}`;
     // foe
     $('foeAvatar').textContent = this.opp.avatar;
+    $('foeCard').classList.toggle('ai-turn', this.phase === 'ai');
     $('foeName').textContent = this.opp.name;
     $('foeTitle').textContent = this.opp.title;
     $('foeHpFill').style.width = `${(this.foeHp / this.foeMax) * 100}%`;

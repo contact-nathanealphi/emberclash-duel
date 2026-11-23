@@ -42,6 +42,9 @@ body {
   box-shadow: 0 6px 24px rgba(0,0,0,.5);
 }
 .fighter.hurt { animation: shake .35s; }
+.fighter.ai-turn { border-color: #c9a7ff; box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 22px rgba(160,110,224,.45); }
+.fighter.ai-turn .avatar { animation: thinkPulse 1s infinite; }
+@keyframes thinkPulse { 50% { transform: scale(1.08); } }
 @keyframes shake {
   0%,100% { transform: translateX(0); } 20% { transform: translateX(-7px); }
   40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); }

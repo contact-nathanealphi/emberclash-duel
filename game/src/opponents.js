@@ -16,7 +16,7 @@ export const OPPONENTS = [
     avatar: '♞', hp: 32, aggression: 0.5, guardBias: 0.35,
     deck: ['ember-strike', 'ember-strike', 'flame-lash', 'flame-lash', 'ignite',
            'frost-ward', 'glacial-wall', 'spark-volley', 'stormcall', 'leaf-mend',
-           'thorn-whip', 'cinder-jab', 'mana-siphon', 'overload'],
+           'thorn-whip', 'cinder-jab'],
     taunt: '“My blade is fire. My patience is not.”',
     lowHpTaunt: '“You dare scratch the Ember Knight?!”',
     defeat: '“Hmph. The flame favours you today.”',
