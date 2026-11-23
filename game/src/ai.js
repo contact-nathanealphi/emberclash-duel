@@ -1,10 +1,10 @@
 // Rival AI — picks its plays for the turn from its hand and mana.
 // Personality: aggression pushes damage, guardBias pushes block when hurt.
-export function describeIntent(opp, hand, mana) {
+export function describeIntent(opp, hand, mana, playerHp = 30, foeHp = 30, foeMax = 30) {
   if (hand.length === 0) return 'out of cards…';
   const playable = hand.filter((c) => c.cost <= mana);
   if (playable.length === 0) return 'saving mana…';
-  const best = pickBestCard(opp, playable, hand);
+  const best = pickBestCard(opp, playable, { playerHp, foeHp, foeMax });
   if (!best) return 'scheming…';
   if (best.effect.dmg) return `plans to strike (${best.effect.dmg} dmg)`;
   if (best.effect.block) return 'plans to guard';
@@ -19,6 +19,7 @@ function scoreCard(opp, card, ctx) {
   if (e.burn) s += e.burn * 1.6;
   if (e.block) s += e.block * (ctx.foeHp < ctx.foeMax * 0.45 ? 2.0 : 0.8) * (0.5 + opp.guardBias);
   if (e.heal) s += e.heal * (ctx.foeHp < ctx.foeMax * 0.55 ? 1.8 : 0.35);
+  if (e.heal && ctx.foeHp >= ctx.foeMax) s -= 6; // never waste a heal at full health
   if (e.draw) s += 2.5;
   if (e.mana) s += 3.0;
   if (e.manaDebt) s += 2.5;
@@ -28,8 +29,7 @@ function scoreCard(opp, card, ctx) {
   return s + Math.random() * 1.5; // a little unpredictability
 }
 
-function pickBestCard(opp, playable, hand) {
-  const ctx = { playerHp: 30, foeHp: 30, foeMax: 30 };
+function pickBestCard(opp, playable, ctx) {
   let best = null; let bestScore = -Infinity;
   for (const c of playable) {
     const s = scoreCard(opp, c, ctx);

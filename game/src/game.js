@@ -561,7 +561,7 @@ export class Game {
   }
 
   updateIntent() {
-    $('foeIntent').textContent = describeIntent(this.opp, this.foeHand, this.foeMana);
+    $('foeIntent').textContent = describeIntent(this.opp, this.foeHand, this.foeMana, this.playerHp, this.foeHp, this.foeMax);
   }
 
   // ---------- overlays ----------

@@ -4,7 +4,7 @@ import { cardById } from './cards.js';
 export const OPPONENTS = [
   {
     id: 'pip', name: 'Pip the Sproutling', title: 'Rival Mage · Duel 1',
-    avatar: '🌱', hp: 28, aggression: 0.3, guardBias: 0.4,
+    avatar: '🌱', hp: 34, aggression: 0.3, guardBias: 0.4,
     deck: ['ember-strike', 'cinder-jab', 'cinder-jab', 'cinder-jab',
            'frost-ward', 'frost-ward', 'frost-ward', 'leaf-mend', 'thorn-whip', 'spark-volley'],
     taunt: '“I may be small, but my sparks bite!”',
