@@ -73,7 +73,7 @@ export class Game {
   beginPlayerTurn(first = false) {
     this.turn += 1;
     this.stats.turnsTaken += 1;
-    this.manaMax = Math.min(MAX_MANA, 2 + this.turn);
+    this.manaMax = Math.min(MAX_MANA, 3 + this.turn);
     this.mana = this.manaMax;
     this.manaBonus = 0;
     this.elementsPlayed = [];
@@ -582,7 +582,7 @@ export class Game {
       </div>
       <div class="rules">
         <b>» How to play</b><br>
-        • Each turn you gain mana (up to 10) and draw 2 cards.<br>
+        • Each turn you gain mana (up to 10, starting at 4) and draw 2 cards.<br>
         • Click a card (or press 1–9) to play it — attacks hurt the rival, Block absorbs damage, Burn ticks each turn straight through Block.<br>
         • <b>Surge:</b> play two cards of the same element in one turn and the second one (costing 1+ mana) hits twice as hard.<br>
         • Win a duel to draft a powerful new card into your deck. Beat all 3 rivals to win the run.<br>
