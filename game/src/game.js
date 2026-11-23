@@ -272,7 +272,8 @@ export class Game {
 
   applyDamageToFoe(amount, kind) {
     let left = amount;
-    if (this.foeBlock > 0) {
+    // Burn scorches straight through Block — it is the answer to turtling rivals.
+    if (kind !== 'burn' && this.foeBlock > 0) {
       const blocked = Math.min(this.foeBlock, left);
       this.foeBlock -= blocked;
       left -= blocked;
@@ -290,7 +291,7 @@ export class Game {
 
   applyDamageToPlayer(amount, kind) {
     let left = amount;
-    if (this.playerBlock > 0) {
+    if (kind !== 'burn' && this.playerBlock > 0) {
       const blocked = Math.min(this.playerBlock, left);
       this.playerBlock -= blocked;
       left -= blocked;
@@ -578,7 +579,7 @@ export class Game {
       <div class="rules">
         <b>» How to play</b><br>
         • Each turn you gain mana (up to 10) and draw 2 cards.<br>
-        • Click a card (or press 1–9) to play it — attacks hurt the rival, Block absorbs damage, Burn ticks each turn.<br>
+        • Click a card (or press 1–9) to play it — attacks hurt the rival, Block absorbs damage, Burn ticks each turn straight through Block.<br>
         • <b>Surge:</b> play two cards of the same element in one turn and the second one (costing 1+ mana) hits twice as hard.<br>
         • Win a duel to draft a powerful new card into your deck. Beat all 3 rivals to win the run.<br>
         • Watch the rival's intent — it shows what they plan to do next.
@@ -626,7 +627,7 @@ export class Game {
         • <b>Mana:</b> you gain +1 max mana each turn (up to 10). Cards cost mana to play.<br>
         • <b>Attack</b> cards deal damage; the rival's Block absorbs it first.<br>
         • <b>Block</b> disappears at the start of your next turn — spend it wisely.<br>
-        • <b>Burn</b> ticks at the start of the owner's turn.<br>
+        • <b>Burn</b> ticks at the start of the owner's turn, straight through Block.<br>
         • <b>Surge:</b> two cards of the same element in one turn → the second (cost 1+) is doubled.<br>
         • <b>Draft:</b> after each duel you win, pick 1 of 3 new cards for your deck.<br>
         • <b>Keys:</b> 1–9 play a card · Space ends turn · H help · M mute · R restart.
