@@ -374,7 +374,7 @@ export class Game {
     sfx.draft();
     this.showOverlay(`
       <h2>🏆 Duel ${this.duelIndex + 1} won! +${gained} score</h2>
-      <p>${this.opp.name} falls. You catch your breath (+12 HP) and choose <b>one new card</b> for your deck before the next duel.</p>
+      <p>${this.opp.name} falls. You catch your breath (+12 HP) and choose <b>one new card</b> for your deck — or rest and mend instead — before the next duel.</p>
       <div class="draftRow" id="draftRow"></div>
       <p class="sub">Your deck: ${this.deckIds.length} cards → ${this.deckIds.length + 1}</p>
     `);

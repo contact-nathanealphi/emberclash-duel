@@ -23,8 +23,8 @@ export const OPPONENTS = [
   },
   {
     id: 'ashen', name: 'Queen Ashenvale', title: 'Rival Mage · Final Duel',
-    avatar: '♛', hp: 40, aggression: 0.6, guardBias: 0.3,
-    deck: ['inferno', 'inferno', 'flame-lash', 'ignite', 'ignite', 'meteor',
+    avatar: '♛', hp: 38, aggression: 0.55, guardBias: 0.3,
+    deck: ['inferno', 'flame-lash', 'ignite', 'ignite', 'meteor',
            'glacial-wall', 'deep-freeze', 'stormcall', 'chain-lightning',
            'bloom', 'spore-cloud', 'ember-strike', 'frost-ward', 'blizzard', 'mana-siphon'],
     taunt: '“Kneel, little spark. The Ashen Throne does not fall.”',
