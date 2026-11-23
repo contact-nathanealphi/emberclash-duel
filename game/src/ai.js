@@ -21,6 +21,8 @@ function scoreCard(opp, card, ctx) {
   if (e.heal) s += e.heal * (ctx.foeHp < ctx.foeMax * 0.55 ? 1.8 : 0.35);
   if (e.draw) s += 2.5;
   if (e.mana) s += 3.0;
+  if (e.manaDebt) s += 2.5;
+  if (e.dmgPerHand) s += e.dmgPerHand * 4 * opp.aggression;
   if (e.lifesteal) s += 3.5;
   s -= card.cost * 0.9;
   return s + Math.random() * 1.5; // a little unpredictability

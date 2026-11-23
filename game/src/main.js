@@ -34,7 +34,11 @@ if (shot) {
     game.manaMax = 5;
     game.mana = 4;
     game.elementsPlayed = ['ember'];
-    game.hand = ['ember-strike', 'ignite', 'frost-ward', 'stormcall', 'thorn-whip', 'lightning-rod'].map(cardById);
+    game.hand = ['ember-strike', 'ignite', 'frost-ward', 'stormcall', 'thorn-whip', 'overload'].map(cardById);
+    game.lastPlayed = [
+      { card: cardById('ember-strike'), who: 'you', surge: true },
+      { card: cardById('frost-ward'), who: 'foe', surge: false },
+    ];
     game.drawPile = game.drawPile.slice(0, 6);
     game.discardPile = ['cinder-jab', 'frost-ward'].map(cardById);
     game.log('sys', '🔥 The duel begins! Play a card to strike first.');

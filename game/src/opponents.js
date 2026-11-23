@@ -8,6 +8,7 @@ export const OPPONENTS = [
     deck: ['ember-strike', 'cinder-jab', 'cinder-jab', 'cinder-jab',
            'frost-ward', 'frost-ward', 'frost-ward', 'leaf-mend', 'thorn-whip', 'spark-volley'],
     taunt: '“I may be small, but my sparks bite!”',
+    lowHpTaunt: '“H-hey! That actually hurt!”',
     defeat: '“Ouch… okay, you fight like a real mage.”',
   },
   {
@@ -15,8 +16,9 @@ export const OPPONENTS = [
     avatar: '♞', hp: 34, aggression: 0.55, guardBias: 0.35,
     deck: ['ember-strike', 'ember-strike', 'flame-lash', 'flame-lash', 'ignite',
            'frost-ward', 'glacial-wall', 'spark-volley', 'stormcall', 'leaf-mend',
-           'thorn-whip', 'cinder-jab'],
+           'thorn-whip', 'cinder-jab', 'mana-siphon', 'overload'],
     taunt: '“My blade is fire. My patience is not.”',
+    lowHpTaunt: '“You dare scratch the Ember Knight?!”',
     defeat: '“Hmph. The flame favours you today.”',
   },
   {
@@ -24,8 +26,9 @@ export const OPPONENTS = [
     avatar: '♛', hp: 42, aggression: 0.65, guardBias: 0.3,
     deck: ['inferno', 'inferno', 'flame-lash', 'ignite', 'ignite', 'meteor',
            'glacial-wall', 'deep-freeze', 'stormcall', 'chain-lightning',
-           'bloom', 'spore-cloud', 'ember-strike', 'frost-ward'],
+           'bloom', 'spore-cloud', 'ember-strike', 'frost-ward', 'blizzard', 'mana-siphon'],
     taunt: '“Kneel, little spark. The Ashen Throne does not fall.”',
+    lowHpTaunt: '“The throne… cracks? No — NO!”',
     defeat: '“Impossible… take the crown, Ember Mage.”',
   },
 ];

@@ -26,7 +26,9 @@ ES modules under `game/`.
   and fades at the start of your next turn; Burn ticks each turn.
 - **20 original cards** across 4 elements — 🔥 Ember (damage),
   ❄️ Frost (block), ⚡ Storm (draw & mana), 🌿 Leaf (heal) — in three
-  rarities (★ common, ★★ rare, ★★★ epic).
+  rarities (★ common, ★★ rare, ★★★ epic). New tricks include Mana Siphon
+  (steal the rival's mana), Overload (damage scales with hand size),
+  Blizzard and Phoenix Feather.
 - **Surge** — play two cards of the same element in one turn and the
   second one (costing 1+ mana) hits twice as hard. The rival's intent
   line shows what it plans to do next, so you can read it and answer.
@@ -51,7 +53,7 @@ game/
   index.html             arena layout (top bar, rival, battlefield, hand)
   style.css              ember-arena styling
   src/
-    cards.js             the 20-card library, starter deck, draft pool
+    cards.js             the 24-card library, starter deck, draft pool
     deck.js              shuffle / draw / reshuffle helpers
     opponents.js         the three rival mages and their decks
     ai.js                rival intent + turn planner
@@ -59,7 +61,7 @@ game/
     fx.js                canvas particles + floating damage numbers
     game.js              state, turns, rendering, overlays
     main.js              boot + deterministic ?shot= staging for screenshots
-screenshots/             1-start, 2-play, 3-draft, 4-end (real renders)
+screenshots/             1-play, 2-start, 3-draft, 4-end (real renders; play is the cover)
 shots.json               the four staged screenshot states
 ```
 
@@ -67,7 +69,7 @@ shots.json               the four staged screenshot states
 
 | | |
 |---|---|
-| ![start](screenshots/1-start.jpg) | ![play](screenshots/2-play.jpg) |
+| ![play](screenshots/1-play.jpg) | ![start](screenshots/2-start.jpg) |
 | ![draft](screenshots/3-draft.jpg) | ![end](screenshots/4-end.jpg) |
 
 ## License

@@ -20,14 +20,18 @@ export const CARD_LIBRARY = [
   { id: 'glacial-wall',  name: 'Glacial Wall',   icon: '🧊', cost: 2, element: 'frost', rarity: 'common', text: 'Gain 13 Block.', effect: { block: 13 } },
   { id: 'snowfall',      name: 'Snowfall',       icon: '❄', cost: 1, element: 'frost', rarity: 'rare',   text: 'Gain 5 Block. Draw 1 card.', effect: { block: 5, draw: 1 } },
   { id: 'deep-freeze',   name: 'Deep Freeze',    icon: '🥶', cost: 2, element: 'frost', rarity: 'rare',   text: 'Deal 6 damage. Gain 6 Block.', effect: { dmg: 6, block: 6 } },
+  { id: 'blizzard',      name: 'Blizzard',       icon: '🌪️', cost: 3, element: 'frost', rarity: 'epic',   text: 'Deal 6 damage. Gain 10 Block.', effect: { dmg: 6, block: 10 } },
   { id: 'mirror-shard',  name: 'Mirror Shard',   icon: '🪞', cost: 1, element: 'frost', rarity: 'epic',   text: 'Gain 8 Block. +4 more if the rival is Burning.', effect: { block: 8, blockIfBurning: 4 } },
   { id: 'spark-volley',  name: 'Spark Volley',   icon: '✨', cost: 1, element: 'storm', rarity: 'common', text: 'Deal 4 damage. Draw 1 card.', effect: { dmg: 4, draw: 1 } },
   { id: 'lightning-rod', name: 'Lightning Rod',  icon: '🔌', cost: 0, element: 'storm', rarity: 'common', text: 'Gain 2 mana this turn.', effect: { mana: 2 } },
   { id: 'stormcall',     name: 'Stormcall',      icon: '🌩️', cost: 2, element: 'storm', rarity: 'rare',   text: 'Deal 8 damage. Draw 1 card.', effect: { dmg: 8, draw: 1 } },
+  { id: 'mana-siphon',   name: 'Mana Siphon',    icon: '🌀', cost: 1, element: 'storm', rarity: 'rare',   text: 'Gain 2 mana. Rival loses 2 mana next turn.', effect: { mana: 2, manaDebt: 2 } },
+  { id: 'overload',      name: 'Overload',       icon: '💥', cost: 2, element: 'storm', rarity: 'rare',   text: 'Deal 3 damage for each card in your hand.', effect: { dmgPerHand: 3 } },
   { id: 'chain-lightning', name: 'Chain Lightning', icon: '⚡', cost: 3, element: 'storm', rarity: 'epic', text: 'Deal 14 damage.', effect: { dmg: 14 } },
   { id: 'leaf-mend',     name: 'Leaf Mend',      icon: '🌱', cost: 1, element: 'leaf',  rarity: 'common', text: 'Heal 6 HP.', effect: { heal: 6 } },
   { id: 'thorn-whip',    name: 'Thorn Whip',     icon: '🌵', cost: 1, element: 'leaf',  rarity: 'common', text: 'Deal 5 damage. Heal 3 HP.', effect: { dmg: 5, heal: 3 } },
   { id: 'bloom',         name: 'Bloom',          icon: '✿', cost: 2, element: 'leaf',  rarity: 'rare',   text: 'Heal 10 HP. Draw 1 card.', effect: { heal: 10, draw: 1 } },
+  { id: 'phoenix-feather', name: 'Phoenix Feather', icon: '🪶', cost: 3, element: 'leaf', rarity: 'epic', text: 'Heal 12 HP. Draw 1 card.', effect: { heal: 12, draw: 1 } },
   { id: 'spore-cloud',   name: 'Spore Cloud',    icon: '☁', cost: 2, element: 'leaf',  rarity: 'rare',   text: 'Deal 5 damage. Burn 5.', effect: { dmg: 5, burn: 5 } },
 ];
 

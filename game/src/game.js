@@ -13,6 +13,10 @@ const MAX_MANA = 10;
 export class Game {
   constructor() {
     this.rng = mulberry32((Date.now() % 2147483647) || 1);
+    if (localStorage.getItem('emberclash.muted') === '1') {
+      setMuted(true);
+      $('soundBtn').classList.add('off');
+    }
     this.resetRun();
     this.bindButtons();
     this.showTitle();
@@ -35,6 +39,10 @@ export class Game {
     this.foeMax = opp.hp;
     this.foeBlock = 0;
     this.foeBurn = 0;
+    this.foeManaDebt = 0;
+    this.foeTauntedLow = false;
+    this.playerTauntedLow = false;
+    this.lastPlayed = [];
     this.playerHp = this.duelIndex === 0 ? 30 : Math.min(30, this.playerHp + 8);
     this.playerMax = 30;
     this.playerBlock = 0;
@@ -108,7 +116,11 @@ export class Game {
       if (this.checkEnd()) { this.busy = false; return; }
     }
     this.foeBlock = 0;
-    this.foeMana = Math.min(8, 2 + this.turn);
+    this.foeMana = Math.max(0, Math.min(8, 2 + this.turn) - this.foeManaDebt);
+    if (this.foeManaDebt > 0) {
+      this.log('sys', `🌀 ${this.opp.name} loses ${this.foeManaDebt} mana to the siphon.`);
+      this.foeManaDebt = 0;
+    }
     // Rival draws 2, reshuffling its discard pile when its deck runs out.
     for (let i = 0; i < 2; i++) {
       if (this.foeDrawPile.length === 0) {
@@ -125,6 +137,8 @@ export class Game {
       this.foeDiscard.push(card);
       this.foeMana -= card.cost;
       this.showPlayedCard(card, 'foe');
+      this.lastPlayed.unshift({ card, who: 'foe', surge: false });
+      if (this.lastPlayed.length > 3) this.lastPlayed.pop();
       this.applyCardEffect(card, 'foe');
       this.render();
       await this.sleep(750);
@@ -164,6 +178,8 @@ export class Game {
     }
     sfx.playCard();
     this.showPlayedCard(card, 'you', surge);
+    this.lastPlayed.unshift({ card, who: 'you', surge });
+    if (this.lastPlayed.length > 3) this.lastPlayed.pop();
     this.applyCardEffect(card, 'you', surge);
     this.render();
     this.checkEnd();
@@ -178,6 +194,22 @@ export class Game {
       if (isYou) { this.mana += e.mana; this.manaBonus += e.mana; }
       else this.foeMana += e.mana;
       this.log('sys', `${isYou ? 'You gain' : this.opp.name + ' gains'} ${e.mana} mana.`);
+    }
+    if (e.manaDebt) {
+      if (isYou) {
+        this.foeManaDebt += e.manaDebt;
+        this.log('good', `🌀 ${this.opp.name} will lose ${e.manaDebt} mana next turn.`);
+      } else {
+        this.mana = Math.max(0, this.mana - e.manaDebt);
+        this.log('bad', `🌀 ${this.opp.name} siphons ${e.manaDebt} of your mana!`);
+      }
+    }
+    if (e.dmgPerHand) {
+      const dmg = e.dmgPerHand * (isYou ? this.hand.length : this.foeHand.length) * mult;
+      if (isYou) this.applyDamageToFoe(dmg, 'hit');
+      else this.applyDamageToPlayer(dmg, 'hit');
+      this.log(isYou ? 'good' : 'bad', `${isYou ? 'Overload crackles for' : this.opp.name + ' overloads for'} ${dmg} damage.`);
+      sfx.hit();
     }
     if (e.dmg) {
       const dmg = e.dmg * mult;
@@ -367,6 +399,7 @@ export class Game {
   render() {
     // top bar
     $('duelLabel').textContent = `Duel ${Math.min(this.duelIndex + 1, 3)} / 3`;
+    $('turnLabel').textContent = `Turn ${this.turn}`;
     $('scoreLabel').textContent = `Score ${this.score}`;
     $('bestLabel').textContent = `Best ${this.best}`;
     // foe
@@ -410,6 +443,25 @@ export class Game {
       const el = this.cardElement(card, i, false);
       handEl.appendChild(el);
     });
+    // battlefield history: last 3 cards played, newest first
+    const strip = $('historyStrip');
+    strip.innerHTML = '';
+    for (const entry of this.lastPlayed) {
+      const m = document.createElement('div');
+      m.className = `miniCard el-${entry.card.element}${entry.who === 'foe' ? ' foePlayed' : ''}`;
+      m.innerHTML = `<span class="mi">${entry.card.icon}</span>${entry.card.name}<span class="who">${entry.who === 'you' ? 'YOU' : 'RIVAL'}${entry.surge ? ' · SURGE' : ''}</span>`;
+      strip.appendChild(m);
+    }
+    // low-health flavour: rival taunts once when nearly beaten, red vignette when you are
+    if (this.foeHp > 0 && this.foeHp <= this.foeMax * 0.25 && !this.foeTauntedLow) {
+      this.foeTauntedLow = true;
+      this.log('sys', `${this.opp.name}: ${this.opp.lowHpTaunt}`);
+    }
+    if (this.playerHp > 0 && this.playerHp <= this.playerMax * 0.25 && !this.playerTauntedLow) {
+      this.playerTauntedLow = true;
+      this.log('bad', '⚠️ You are nearly out of health — guard up or finish this fast!');
+    }
+    $('app').classList.toggle('danger', this.phase === 'player' && this.playerHp > 0 && this.playerHp <= this.playerMax * 0.25);
   }
 
   setChip(el, value, label) {
@@ -525,6 +577,24 @@ export class Game {
     };
   }
 
+  showDeckViewer(which) {
+    const cards = which === 'discard' ? this.discardPile : [...this.drawPile, ...this.hand];
+    const counts = new Map();
+    for (const c of cards) counts.set(c.id, (counts.get(c.id) || 0) + 1);
+    const rows = [...counts.entries()]
+      .map(([id, n]) => {
+        const c = cardById(id);
+        return `<div>${c.icon} <b>${c.name}</b> ×${n} — ${c.cost} mana · ${ELEMENTS[c.element].label} · ${c.text}</div>`;
+      })
+      .join('');
+    this.showOverlay(`
+      <h2>${which === 'discard' ? 'Discard pile' : 'Your deck'} — ${cards.length} card(s)</h2>
+      <div class="deckList">${rows || '<div>Empty.</div>'}</div>
+      <button class="bigbtn" id="closeDeck">BACK TO THE DUEL</button>
+    `);
+    $('closeDeck').onclick = () => this.hideOverlay();
+  }
+
   showHelp() {
     this.showOverlay(`
       <h2>How to play</h2>
@@ -544,11 +614,14 @@ export class Game {
 
   bindButtons() {
     $('endTurnBtn').onclick = () => this.endTurn();
+    $('deckPile').onclick = () => this.showDeckViewer('deck');
+    $('discardPile').onclick = () => this.showDeckViewer('discard');
     $('helpBtn').onclick = () => this.showHelp();
     $('restartBtn').onclick = () => { this.hideOverlay(); this.resetRun(); this.showTitle(); this.render(); };
     $('soundBtn').onclick = () => {
       setMuted(!isMuted());
       $('soundBtn').classList.toggle('off', isMuted());
+      localStorage.setItem('emberclash.muted', isMuted() ? '1' : '0');
     };
     document.addEventListener('keydown', (e) => {
       if (e.key === ' ') { e.preventDefault(); this.endTurn(); }
