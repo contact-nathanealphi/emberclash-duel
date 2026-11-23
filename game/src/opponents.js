@@ -23,7 +23,7 @@ export const OPPONENTS = [
   },
   {
     id: 'ashen', name: 'Queen Ashenvale', title: 'Rival Mage · Final Duel',
-    avatar: '♛', hp: 38, aggression: 0.55, guardBias: 0.3,
+    avatar: '♛', hp: 36, aggression: 0.5, guardBias: 0.3, manaCap: 6,
     deck: ['inferno', 'flame-lash', 'ignite', 'ignite', 'meteor',
            'glacial-wall', 'deep-freeze', 'stormcall', 'chain-lightning',
            'bloom', 'spore-cloud', 'ember-strike', 'frost-ward', 'blizzard'],

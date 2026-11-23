@@ -116,7 +116,7 @@ export class Game {
       if (this.checkEnd()) { this.busy = false; return; }
     }
     this.foeBlock = 0;
-    this.foeMana = Math.max(0, Math.min(8, 2 + this.turn) - this.foeManaDebt);
+    this.foeMana = Math.max(0, Math.min(this.opp.manaCap || 8, 2 + this.turn) - this.foeManaDebt);
     if (this.foeManaDebt > 0) {
       this.log('sys', `🌀 ${this.opp.name} loses ${this.foeManaDebt} mana to the siphon.`);
       this.foeManaDebt = 0;
@@ -377,7 +377,7 @@ export class Game {
       <h2>🏆 Duel ${this.duelIndex + 1} won! +${gained} score</h2>
       <p>${this.opp.name} falls. You catch your breath (fully healed) and choose <b>one new card</b> for your deck — or take Second Wind instead — before the next duel.</p>
       <div class="draftRow" id="draftRow"></div>
-      <p class="sub">Your deck: ${this.deckIds.length} cards → ${this.deckIds.length + 1}</p>
+      <p class="sub">Your deck: ${this.deckIds.length} cards — draft one to grow it, or take Second Wind.</p>
     `);
     const row = $('draftRow');
     choices.forEach((c) => {
